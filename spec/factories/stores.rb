@@ -12,6 +12,7 @@
 
 FactoryGirl.define do
   factory :store do
-    
+    name 'JediStore'
+    url 'https://swgoh.gg/'
   end
 end
