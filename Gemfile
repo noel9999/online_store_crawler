@@ -54,3 +54,6 @@ end
 
 # tool
 gem 'settingslogic'
+
+# console tool
+gem 'awesome_rails_console'
