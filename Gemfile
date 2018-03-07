@@ -75,3 +75,7 @@ end
 
 # background job
 gem 'sidekiq'
+
+# crawler
+
+gem 'wombat'
