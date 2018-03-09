@@ -11,6 +11,18 @@
 #
 
 class Store < ApplicationRecord
+  PROVIDERS = %w(rt_mart).freeze
+
   validates :name, presence: true
   validates :url, presence: true, uniqueness: true
+
+  delegate :crawlers_dispatch_service, :execute_crawler_service, to: :class  
+
+  def self.crawlers_dispatch_service
+    RtMartCrawlersDispatchService
+  end
+
+  def self.execute_crawler_service
+    RtMartExecuteCrawlerService
+  end
 end
