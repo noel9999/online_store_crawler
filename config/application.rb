@@ -30,5 +30,10 @@ module OnlineStoreCrawler
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_job.queue_adapter = :sidekiq
+
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app/services')
+    config.autoload_paths << Rails.root.join('app/services/concerns')
+    config.autoload_paths << Rails.root.join('app/errors')
   end
 end
