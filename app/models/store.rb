@@ -19,16 +19,13 @@ class Store < ApplicationRecord
   validates :name, presence: true
   validates :url, presence: true, uniqueness: true
 
-  def crawlers_dispatch_service
-    RtMartCrawlersDispatchService
+  delegate :crawlers_dispatch_service, :execute_crawler_service, to: :class
+
+  def self.crawlers_dispatch_service
+    CrawlersDispatchService
   end
 
-  def execute_crawler_service
-    case name
-    when PROVIDERS[:rt_mart]
-      RtMartExecuteCrawlerService
-    when PROVIDERS[:wellcome]
-      WellcomeExecuteCrawlerService
-    end
+  def self.execute_crawler_service
+    ExecuteCrawlerService
   end
 end

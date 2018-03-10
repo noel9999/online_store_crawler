@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RtMartCrawlersDispatchService do
+describe CrawlersDispatchService do
   let(:args) do
     {
       store: create(:store, name: 'rt_mart'),

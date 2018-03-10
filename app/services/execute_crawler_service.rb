@@ -1,5 +1,8 @@
-class WellcomeExecuteCrawlerService
+class ExecuteCrawlerService
   include Concerns::ActsAsServiceObject
+
+  attr_reader :url
+  attr_accessor :strategy
 
   def initialize(args = {})
     args = args.symbolize_keys
@@ -8,11 +11,12 @@ class WellcomeExecuteCrawlerService
     fail URI::InvalidURIError unless URI.regexp =~ @url
     @url = URI(@url)
     @products_data = []
+    @strategy = CrawlerExecution.const_get("#{store.name}_strategy".camelcase).new(self)
   end
 
   protected
 
-  attr_reader :store, :url, :tag, :products_raw_data, :products_data
+  attr_reader :store, :tag, :products_raw_data, :products_data
 
   def process
     extract_data
@@ -21,42 +25,7 @@ class WellcomeExecuteCrawlerService
   end
 
   def extract_data
-    @products_raw_data or begin
-      # cause Wombat use clean room skill so that 
-      # I have to do these ugly things 
-      # to pass our own variable or method into it
-      klass = Class.new do
-        class << self
-          def url=(url)
-            @url = url
-          end
-
-          def url
-            @url
-          end
-        end
-      end    
-      klass.url = url
-      klass.class_eval do
-        include Wombat::Crawler
-        page_domain = "#{url.scheme}://#{url.host}"
-        base_url page_domain
-        path url.request_uri    
-        products({ css: '.category-item-container .row .item-col' }, :iterator) do
-          image_thumb_url({css: '.item-image-wrapper figure.item-image-container' }, :html) do |value|
-            html_doc = Nokogiri::HTML(value)
-            page_domain + html_doc.css('a > img')[0]['src']
-          end
-          url({css: '.item-image-wrapper figure.item-image-container' }, :html) do |value|
-            html_doc = Nokogiri::HTML(value)
-            page_domain + html_doc.css('a')[0]['href']
-          end
-          title({css: '.item-meta-container .item-name'})
-          price(css: '.item-meta-container .item-price-container.inline')
-        end  
-      end
-      @products_raw_data = klass.new.crawl
-    end
+    @products_raw_data ||= strategy.extract_data
   end
 
   def normalize_products_data

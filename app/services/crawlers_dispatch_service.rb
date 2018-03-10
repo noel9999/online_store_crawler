@@ -1,4 +1,4 @@
-class RtMartCrawlersDispatchService
+class CrawlersDispatchService
   include Concerns::ActsAsServiceObject
 
   def initialize(args = {})

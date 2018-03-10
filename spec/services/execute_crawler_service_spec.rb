@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RtMartExecuteCrawlerService do
+describe ExecuteCrawlerService do
   let(:store) { create :store, name: 'rt_mart' }
 
   describe '#initialize' do
