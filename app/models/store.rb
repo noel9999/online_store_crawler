@@ -11,18 +11,24 @@
 #
 
 class Store < ApplicationRecord
-  PROVIDERS = %w(rt_mart).freeze
+  PROVIDERS = {
+    rt_mart: 'rt_mart', 
+    wellcome: 'wellcome'
+  }.freeze
 
   validates :name, presence: true
   validates :url, presence: true, uniqueness: true
 
-  delegate :crawlers_dispatch_service, :execute_crawler_service, to: :class  
-
-  def self.crawlers_dispatch_service
+  def crawlers_dispatch_service
     RtMartCrawlersDispatchService
   end
 
-  def self.execute_crawler_service
-    RtMartExecuteCrawlerService
+  def execute_crawler_service
+    case name
+    when PROVIDERS[:rt_mart]
+      RtMartExecuteCrawlerService
+    when PROVIDERS[:wellcome]
+      WellcomeExecuteCrawlerService
+    end
   end
 end
