@@ -50,15 +50,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-group :development, :test do
-  # test
-  gem 'rspec-rails', '~> 3.7'
-  gem 'rspec-given'
-  gem 'shoulda-matchers'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
-end
-
 # tool
 gem 'settingslogic'
 
@@ -71,11 +62,20 @@ group :development, :test do
   gem 'hirb-unicode'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
+
+  # test
+  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-given'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+
+  gem 'webmock', '~> 2.3.1'
+  gem 'vcr', '~>4.0.0'
 end
 
 # background job
 gem 'sidekiq'
 
 # crawler
-
 gem 'wombat'
