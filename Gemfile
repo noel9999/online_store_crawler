@@ -79,3 +79,6 @@ gem 'sidekiq'
 
 # crawler
 gem 'wombat'
+
+# cronjob
+gem 'whenever'

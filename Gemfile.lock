@@ -53,6 +53,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (10.0.0)
+    chronic (0.10.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
@@ -249,6 +250,8 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     wombat (2.7.0)
       activesupport
       mechanize
@@ -285,6 +288,7 @@ DEPENDENCIES
   tzinfo-data
   vcr (~> 4.0.0)
   webmock (~> 2.3.1)
+  whenever
   wombat
 
 BUNDLED WITH
