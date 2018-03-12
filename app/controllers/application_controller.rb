@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::Caching
   rescue_from ApplicationError, with: :error_handler
 
   protected
