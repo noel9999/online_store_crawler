@@ -84,4 +84,7 @@ gem 'wombat'
 gem 'whenever'
 
 # tool
-gem 'ransack'
+gem 'ransack', '~> 1.8.7 '
+gem 'kaminari'
+gem 'jbuilder'
+gem 'faker'
