@@ -82,3 +82,6 @@ gem 'wombat'
 
 # cronjob
 gem 'whenever'
+
+# tool
+gem 'ransack'
