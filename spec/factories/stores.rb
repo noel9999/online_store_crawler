@@ -14,7 +14,7 @@
 FactoryGirl.define do
   factory :store do
     name 'JediStore'
-    url 'https://swgoh.gg/'
-    key 'jedi_store'
+    sequence(:url) { |n| "https://swgoh.gg/#{n}_stor" }
+    sequence(:key) { |n| "jedi_store_#{n}" }
   end
 end
