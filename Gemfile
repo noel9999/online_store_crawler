@@ -82,3 +82,9 @@ gem 'wombat'
 
 # cronjob
 gem 'whenever'
+
+# tool
+gem 'ransack', '~> 1.8.7 '
+gem 'kaminari'
+gem 'jbuilder'
+gem 'faker'

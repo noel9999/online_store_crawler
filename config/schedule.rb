@@ -18,8 +18,8 @@
 # end
 
 every 1.week do
-  Store::PROVIDERS.values.each do |store_name|
-    rake "crawler:fetch_online_store_products[#{store_name}]"
+  Store::PROVIDERS.keys.each do |store_key|
+    rake "crawler:fetch_online_store_products[#{store_key}]"
   end
 end
 

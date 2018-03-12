@@ -35,5 +35,8 @@ module OnlineStoreCrawler
     config.autoload_paths << Rails.root.join('app/services')
     config.autoload_paths << Rails.root.join('app/services/concerns')
     config.autoload_paths << Rails.root.join('app/errors')
+    if Rails.env.development? || Rails.env.test? 
+      config.action_controller.permit_all_parameters = true
+    end
   end
 end

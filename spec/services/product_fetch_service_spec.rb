@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProductFetchService do
   describe '#initialize' do
-    context 'without store_name provided' do
+    context 'without store_key provided' do
       it 'raises KeyError' do
         expect { described_class.new }.to raise_error(KeyError)
       end
@@ -10,14 +10,14 @@ describe ProductFetchService do
 
     context 'without corresponding store found' do
       it 'raises not found error' do
-        expect { described_class.new(store_name: 'rt_mart') }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { described_class.new(store_key: 'rt_mart') }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'with store name provided' do
-      let!(:store) { create :store, name: 'rt_mart' }
+      let!(:store) { create :store, key: 'rt_mart', name: '大潤發' }
       it 'returns correct instance' do
-        expect(described_class.new(store_name: store.name)).to be_kind_of described_class
+        expect(described_class.new(store_key: store.key)).to be_kind_of described_class
       end
     end
   end
@@ -34,8 +34,8 @@ describe ProductFetchService do
     end
 
     context 'with 5 links fetched' do
-      let!(:store) { create :store, name: 'rt_mart' }
-      let(:service) { described_class.new(store_name: store.name) }
+      let!(:store) { create :store, key: 'rt_mart', name: '大潤發' }
+      let(:service) { described_class.new(store_key: store.key) }
 
       before { allow(service).to receive(:extract_data).and_return(data) }
 

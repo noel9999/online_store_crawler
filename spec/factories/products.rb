@@ -16,6 +16,10 @@
 
 FactoryGirl.define do
   factory :product do
-    
+    name { Faker::Name.name }    
+    tags{ Array.new(2) { Faker::StarWars.specie } }
+    sequence(:url) { |n| "https://www.google.com.tw/search?source=hp&ei=rEKmWvikIcLR0ASLs5O4BQ&q=star+wars+#{n}" } 
+    price 200
+    store_id { create(:store).id }
   end
 end

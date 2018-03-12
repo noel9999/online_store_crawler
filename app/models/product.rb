@@ -15,4 +15,11 @@
 #
 
 class Product < ApplicationRecord
+  validates :name, presence: true
+  validates :url, presence: true, uniqueness: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  belongs_to :store
+
+  delegate :name, to: :store, prefix: true
 end
