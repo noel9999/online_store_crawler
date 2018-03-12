@@ -13,8 +13,8 @@
 
 class Store < ApplicationRecord
   PROVIDERS = {
-    rt_mart: 'rt_mart', 
-    wellcome: 'wellcome'
+    rt_mart: '大潤發', 
+    wellcome: '頂好'
   }.freeze
 
   validates :name, presence: true

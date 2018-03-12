@@ -5,8 +5,8 @@ class ProductFetchService
 
   def initialize(args = {})
     @options = default_options.merge(args.symbolize_keys)
-    @store = Store.find_by!(name: options.fetch(:store_name))
-    @strategy = ProductFetcher.const_get("#{store.name}_strategy".camelcase).new(self)
+    @store = Store.find_by!(key: options.fetch(:store_key))
+    @strategy = ProductFetcher.const_get("#{store.key}_strategy".camelcase).new(self)
   end
 
   def execute
