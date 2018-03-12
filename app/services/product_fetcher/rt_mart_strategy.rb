@@ -21,6 +21,7 @@ module ProductFetcher
       page = Mechanize.new.get(url)
       page_urls = [url]
       next_page_link = page.link_with(text: 'Next')
+      return page_urls unless next_page_link
       until(next_page_link.href == '#')
         Thread.new do
           @mutex.synchronize { page_urls << store.url + next_page_link.href.to_s }
