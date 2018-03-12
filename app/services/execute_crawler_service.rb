@@ -11,7 +11,7 @@ class ExecuteCrawlerService
     fail URI::InvalidURIError unless URI.regexp =~ @url
     @url = URI(@url)
     @products_data = []
-    @strategy = CrawlerExecution.const_get("#{store.name}_strategy".camelcase).new(self)
+    @strategy = CrawlerExecution.const_get("#{store.key}_strategy".camelcase).new(self)
   end
 
   protected
@@ -40,7 +40,7 @@ class ExecuteCrawlerService
       if product.new_record?
         product.attributes = product_data.as_json
       else
-        next if product.price == product_data.price
+        next (product.touch) if product.price == product_data.price
         product.price = product_data.price
       end
       product.save

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ExecuteCrawlerService do
-  let(:store) { create :store, name: 'rt_mart' }
+  let(:store) { create :store, name: 'rt_mart', key: 'rt_mart' }
 
   describe '#initialize' do
     context 'without rt_mart store' do
@@ -77,7 +77,23 @@ describe ExecuteCrawlerService do
         result = service.execute
         expect(result.success?).to be_truthy
         expect(Product.find_by(url: data[:products][0][:url]).price).to eq 999
-        expect(Product.find_by(url: data[:products][1][:url]).price).to eq 9999
+        expect(Product.find_by(url: data[:products][1][:url]).price).to eq 9999      
+      end
+
+      context 'with two product already exist in our db' do
+        let!(:product_a) do 
+          create :product, store: store, name: data[:products][0][:title], 
+            url: data[:products][0][:url], price: data[:products][0][:price][1..-1].to_i
+        end
+        let!(:product_b) do 
+          create :product, store: store, name: data[:products][1][:title], 
+            url: data[:products][1][:url], price: data[:products][1][:price][1..-1].to_i
+        end
+
+        it 'just touches those products' do
+          expect { service.execute }.to change { product_a.reload.updated_at }
+                                        .and change { product_b.reload.updated_at }
+        end
       end
     end
   end
